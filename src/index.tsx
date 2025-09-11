@@ -1,6 +1,6 @@
 /**
  * HealthGrid AI Triage Server - Hono Implementation
- * Complete healthcare triage system with Gupshup WhatsApp integration
+ * Complete healthcare this triage system with Gupshup WhatsApp integration
  * Handles medical triage conversations through WhatsApp Business API
  */
 import { config } from 'dotenv'
@@ -85,20 +85,20 @@ async function initializeServices(env: Bindings) {
         console.log('🚀 Initializing HealthGrid services...')
 
         // Initialize MySQL Service
-        // const dbConfig: DatabaseConfig = {
-        //     host: env.DB_HOST || '77.37.35.61',
-        //     port: parseInt(env.DB_PORT || '3306'),
-        //     database: env.DB_DATABASE || 'u280643084_healthgrid',
-        //     user: env.DB_USERNAME || 'u280643084_healthgrid',
-        //     password: env.DB_PASSWORD || 'HealthGrid@123'
-        // }
         const dbConfig: DatabaseConfig = {
-            host: '77.37.35.61',
-            port: parseInt('3306'),
-            database: 'u280643084_healthgrid',
-            user: 'u280643084_healthgrid',
-            password: 'HealthGrid@123'
+            host: env.DB_HOST || '77.37.35.61',
+            port: parseInt(env.DB_PORT || '3306'),
+            database: env.DB_DATABASE || 'u280643084_healthgrid',
+            user: env.DB_USERNAME || 'u280643084_healthgridpel',
+            password: env.DB_PASSWORD || 'HealthGrid@123'
         }
+        // const dbConfig: DatabaseConfig = {
+        //     host: '77.37.35.61',
+        //     port: parseInt('3306'),
+        //     database: 'u280643084_healthgrid',
+        //     user: 'u280643084_healthgrid',
+        //     password: 'HealthGrid@123'
+        // }
 
         mysqlService = new MySQLService(dbConfig)
         await mysqlService.init()
