@@ -18,7 +18,7 @@
     "GROQ_API_KEY": "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"
   },
   "env": {
-    "preview": {
+    "staging": {
       "vars": {
         "BASE_URL": "https://ff728019.healthgrid-ebk.pages.dev/",
         "NODE_ENV": "production",
