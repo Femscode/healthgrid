@@ -6,17 +6,20 @@
 import { SessionManager } from './sessionManager'
 import { ConversationFlowManager } from './conversationFlowManager'
 import { GupshupService } from './gupshupService'
+import { ChatService } from './chatService'
 
 export class WebhookHandler {
   private sessionManager: SessionManager
   private conversationManager: ConversationFlowManager
   private gupshupService: GupshupService
+  private chatService: ChatService
   private metrics: any
 
-  constructor(sessionManager: SessionManager, conversationManager: ConversationFlowManager, gupshupService: GupshupService) {
+  constructor(sessionManager: SessionManager, conversationManager: ConversationFlowManager, gupshupService: GupshupService, chatService: ChatService) {
     this.sessionManager = sessionManager
     this.conversationManager = conversationManager
     this.gupshupService = gupshupService
+    this.chatService = chatService
     
     // Track webhook metrics
     this.metrics = {
@@ -86,7 +89,7 @@ export class WebhookHandler {
       const processingTime = Date.now() - startTime
       
       console.error('Webhook processing failed', {
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
         payload,
         processingTime: `${processingTime}ms`
       })
@@ -97,20 +100,24 @@ export class WebhookHandler {
 
   private async processUserMessage(messageData: any): Promise<void> {
     try {
-      const { phoneNumber, content, messageType, isButtonReply, isListReply } = messageData
+      const { phoneNumber, content, messageType, isButtonReply, isListReply, messageId } = messageData
+
+      // Check if this message has already been processed to prevent duplicates
+      if (messageId) {
+        const isProcessed = await this.chatService.isMessageProcessed(messageId, phoneNumber)
+        if (isProcessed) {
+          console.log('Message already processed, skipping', { messageId, phoneNumber })
+          return
+        }
+      }
 
       // Get or create user session
       const session = await this.sessionManager.getOrCreateSession(phoneNumber)
       
-      // Add incoming message to history
-      await this.sessionManager.addToHistory(session.id, {
-        content: content,
-        type: messageType,
-        isButtonReply,
-        isListReply,
-        timestamp: new Date(),
-        metadata: messageData
-      }, 'incoming')
+      // Mark message as processed to prevent future duplicates
+      if (messageId) {
+        await this.chatService.markWebhookMessageProcessed(messageId, phoneNumber, session.id, messageData)
+      }
 
       // Create message object for conversation manager
       const message = {
@@ -143,11 +150,11 @@ export class WebhookHandler {
     } catch (error) {
       console.error('Error processing user message', {
         phoneNumber: messageData.phoneNumber,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error)
       })
 
       // Send error message to user
-      await this.sendErrorMessage(messageData.phoneNumber, error)
+      await this.sendErrorMessage(messageData.phoneNumber, error instanceof Error ? error : new Error(String(error)))
     }
   }
 
@@ -206,7 +213,7 @@ export class WebhookHandler {
       console.error('Failed to send response', {
         phoneNumber,
         responseType: response.type,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error)
       })
       
       // Try to send a simple error message
@@ -218,7 +225,7 @@ export class WebhookHandler {
       } catch (fallbackError) {
         console.error('Failed to send fallback error message', {
           phoneNumber,
-          error: fallbackError.message
+          error: fallbackError instanceof Error ? fallbackError.message : String(fallbackError)
         })
       }
     }
@@ -240,8 +247,8 @@ export class WebhookHandler {
     } catch (sendError) {
       console.error('Failed to send error message', {
         phoneNumber,
-        originalError: error.message,
-        sendError: sendError.message
+        originalError: error instanceof Error ? error.message : String(error),
+        sendError: sendError instanceof Error ? sendError.message : String(sendError)
       })
     }
   }

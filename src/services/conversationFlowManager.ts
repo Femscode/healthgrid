@@ -86,7 +86,7 @@ export class ConversationFlowManager {
     } catch (error) {
       console.error('Conversation management error', {
         phoneNumber: message.phoneNumber,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error)
       })
       
       return this.generateErrorResponse(session.preferredLanguage || 'en')
@@ -174,7 +174,7 @@ export class ConversationFlowManager {
       }
 
     } catch (error) {
-      console.error('Demographics collection error', { error: error.message })
+      console.error('Demographics collection error', { error: error instanceof Error ? error.message : String(error) })
       
       // Ask for clarification
       const clarificationMessage = this.getLocalizedMessage('demographics_clarification', session.preferredLanguage)
@@ -223,7 +223,7 @@ export class ConversationFlowManager {
       return await this.performRiskAssessment(session)
 
     } catch (error) {
-      console.error('Symptom collection error', { error: error.message })
+      console.error('Symptom collection error', { error: error instanceof Error ? error.message : String(error) })
       
       const errorMessage = this.getLocalizedMessage('symptom_collection_error', session.preferredLanguage)
       return {
@@ -277,7 +277,7 @@ export class ConversationFlowManager {
       }
 
     } catch (error) {
-      console.error('Provider matching error', { error: error.message })
+      console.error('Provider matching error', { error: error instanceof Error ? error.message : String(error) })
       
       const errorMessage = this.getLocalizedMessage('provider_matching_error', session.preferredLanguage)
       return {
@@ -378,7 +378,7 @@ export class ConversationFlowManager {
       }
 
     } catch (error) {
-      console.error('Provider selection error', { error: error.message })
+      console.error('Provider selection error', { error: error instanceof Error ? error.message : String(error) })
       
       const errorMessage = this.getLocalizedMessage('provider_selection_error', session.preferredLanguage)
       return {
@@ -442,7 +442,7 @@ export class ConversationFlowManager {
       }
 
     } catch (error) {
-      console.error('Risk assessment error', { error: error.message })
+      console.error('Risk assessment error', { error: error instanceof Error ? error.message : String(error) })
       throw error
     }
   }
@@ -490,7 +490,7 @@ export class ConversationFlowManager {
       ig: ['mberede', 'ana m anwụ', 'ozugbo', 'enweghị m ike iku ume']
     }
 
-    const keywords = emergencyKeywords[language] || emergencyKeywords.en
+    const keywords = emergencyKeywords[language as keyof typeof emergencyKeywords] || emergencyKeywords.en
     const lowerText = text.toLowerCase()
     
     for (const keyword of keywords) {
@@ -575,7 +575,7 @@ export class ConversationFlowManager {
       ig: "Ị nwere ike ịgwa m karịa gbasara ihe na-eme gị? Dịka, olee mgbe ọ malitere?"
     }
     
-    return questions[language] || questions.en
+    return questions[language as keyof typeof questions] || questions.en
   }
 
   private async findNearbyHospitals(session: any): Promise<any> {
@@ -666,11 +666,11 @@ export class ConversationFlowManager {
         pcm: 'Good! Your appointment don ready. You go get confirmation message soon.',
         yo: 'Ó dára! A ti ṣètò ìpàdé rẹ. Ìwé ìjẹ́rìísí ni ìwọ yóò gbà láìpẹ́.',
         ha: 'Madalla! An shirya alkawarinku. Za ku sami sakon tabbatar da hakan nan ba da jimawa ba.',
-        ig: 'Ọ dị mma! Ahọpụtala oge nzukọ gị. Ị ga-enweta ozi nkwenye n\'oge na-adịghị anya.'
+        ig: 'Ọ dị mma! Ahọpụtala oge nzukọ gị. Ị ga-enweta ozi nkwenye noge na-adịghị anya.'
       }
     }
 
-    return messages[key]?.[language] || messages[key]?.en || 'Message not found'
+    return messages[key]?.[language as keyof typeof messages[typeof key]] || messages[key]?.en || 'Message not found'
   }
 
   private async updateSessionState(sessionId: string, newState: string): Promise<void> {
