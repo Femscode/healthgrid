@@ -12,12 +12,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Database configuration from environment variables
+ 
 const dbConfig = {
-  host: process.env.DB_HOST || '127.0.0.1',
-  port: parseInt(process.env.DB_PORT || '3306'),
-  user: process.env.DB_USERNAME || 'root',
-  password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_DATABASE || 'healthgrid_triage'
+  host: '77.37.35.61',
+  port: parseInt('3306'),
+  user: 'u280643084_healthgrid',
+  password: 'HealthGrid@123',
+  database: 'u280643084_healthgrid'
+  
 };
 
 async function verifyDatabase() {
