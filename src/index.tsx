@@ -695,7 +695,7 @@ app.get('/', (c) => {
                 <div class="lg:col-span-2">
                     <div class="medical-card rounded-2xl p-6 h-96">
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-bold text-gray-800" data-translate="chat-title">Live Chat with Doctor</h3>
+                            <h3 class="text-xl font-bold text-gray-800" data-translate="chat-title">Live Chat With Doctor</h3>
                             <div class="flex items-center space-x-4">
                                 <div class="flex items-center space-x-2">
                                     <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
