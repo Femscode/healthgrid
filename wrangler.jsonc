@@ -2,34 +2,12 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "healthgrid",
   "compatibility_date": "2025-08-21",
-  "pages_build_output_dir": "./dist",
+  "pages_build_output_dir": "dist",
   "compatibility_flags": [
     "nodejs_compat"
   ],
   "vars": {
     "NODE_ENV": "production",
     "BASE_URL": "https://4ca2ab63.healthgrid-ebk.pages.dev/"
-  },
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "MY_KV_NAMESPACE",
-  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  //   }
-  // ],
-  // "r2_buckets": [
-  //   {
-  //     "binding": "MY_BUCKET",
-  //     "bucket_name": "my-bucket"
-  //   }
-  // ],
-  // "d1_databases": [
-  //   {
-  //     "binding": "MY_DB",
-  //     "database_name": "my-database",
-  //     "database_id": ""
-  //   }
-  // ],
-  // "ai": {
-  //   "binding": "AI"
-  // }
+  }
 }
