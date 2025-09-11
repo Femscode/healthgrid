@@ -85,12 +85,19 @@ async function initializeServices(env: Bindings) {
         console.log('🚀 Initializing HealthGrid services...')
 
         // Initialize MySQL Service
+        // const dbConfig: DatabaseConfig = {
+        //     host: env.DB_HOST || '127.0.0.1',
+        //     port: parseInt(env.DB_PORT || '3306'),
+        //     database: env.DB_DATABASE || 'healthgrid_triage',
+        //     user: env.DB_USERNAME || 'root',
+        //     password: env.DB_PASSWORD || ''
+        // }
         const dbConfig: DatabaseConfig = {
-            host: env.DB_HOST || '127.0.0.1',
+            host: env.DB_HOST || '77.37.35.61',
             port: parseInt(env.DB_PORT || '3306'),
-            database: env.DB_DATABASE || 'healthgrid_triage',
-            user: env.DB_USERNAME || 'root',
-            password: env.DB_PASSWORD || ''
+            database: env.DB_DATABASE || 'u280643084_healthgrid',
+            user: env.DB_USERNAME || 'u280643084_healthgrid',
+            password: env.DB_PASSWORD || 'HealthGrid@123'
         }
 
         mysqlService = new MySQLService(dbConfig)
