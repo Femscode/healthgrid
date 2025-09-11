@@ -20,14 +20,14 @@ dotenv.config();
 
 // Database configuration from environment variables
 const dbConfig = {
-  host: process.env.DB_HOST || '127.0.0.1',
-  port: parseInt(process.env.DB_PORT || '3306'),
-  user: process.env.DB_USERNAME || 'root',
-  password: process.env.DB_PASSWORD || '',
+  host: c.env.DB_HOST || '127.0.0.1',
+  port: parseInt(c.env.DB_PORT || '3306'),
+  user: c.env.DB_USERNAME || 'root',
+  password: c.env.DB_PASSWORD || '',
   multipleStatements: true
 };
 
-const databaseName = process.env.DB_DATABASE || 'healthgrid_triage';
+const databaseName = c.env.DB_DATABASE || 'healthgrid_triage';
 
 async function setupDatabase() {
   let connection;

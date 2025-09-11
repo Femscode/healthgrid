@@ -10,7 +10,7 @@ import { logger } from 'hono/logger'
 import { serveStatic } from 'hono/cloudflare-workers'
 
 // Load environment variables in development
-if (process.env.NODE_ENV !== 'production') {
+if (c.env.NODE_ENV !== 'production') {
     config()
 }
 
@@ -68,8 +68,8 @@ app.use('*', logger())
 // Middleware to initialize services on first API request
 app.use('/api/*', async (c, next) => {
     if (!webhookHandler) {
-        // Use process.env in development, c.env in production
-        const env = process.env.NODE_ENV !== 'production' ? process.env as any : c.env
+        // Use c.env in development, c.env in production
+        const env = c.env.NODE_ENV !== 'production' ? c.env as any : c.env
         await initializeServices(env)
     }
     await next()

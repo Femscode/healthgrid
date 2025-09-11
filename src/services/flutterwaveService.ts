@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 
-if (process.env.NODE_ENV !== 'production') {
+if (c.env.NODE_ENV !== 'production') {
     config();
 }
 
@@ -35,8 +35,8 @@ export class FlutterwaveService {
     private baseUrl: string;
 
     constructor() {
-        this.publicKey = process.env.FLUTTERWAVE_PUBLIC_KEY || '';
-        this.secretKey = process.env.FLUTTERWAVE_SECRET_KEY || '';
+        this.publicKey = c.env.FLUTTERWAVE_PUBLIC_KEY || '';
+        this.secretKey = c.env.FLUTTERWAVE_SECRET_KEY || '';
         this.baseUrl = 'https://api.flutterwave.com/v3';
         
         if (!this.publicKey || !this.secretKey) {
@@ -58,7 +58,7 @@ export class FlutterwaveService {
                 tx_ref: `consultation_${customerData.sessionId}_${Date.now()}`,
                 amount: 15000, // ₦15,000
                 currency: 'NGN',
-                redirect_url: `${process.env.BASE_URL || 'http://localhost:5173'}/payment/callback`,
+                redirect_url: `${c.env.BASE_URL || 'http://localhost:5173'}/payment/callback`,
                 customer: {
                     email: customerData.email,
                     phonenumber: customerData.phone,
@@ -67,7 +67,7 @@ export class FlutterwaveService {
                 customizations: {
                     title: 'HealthGrid Doctor Consultation',
                     description: 'Online consultation with certified doctor',
-                    logo: `${process.env.BASE_URL || 'http://localhost:5173'}/logo.png`
+                    logo: `${c.env.BASE_URL || 'http://localhost:5173'}/logo.png`
                 }
             };
 

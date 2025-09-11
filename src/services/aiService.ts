@@ -40,7 +40,7 @@ export function initializeConversationState(language: string = 'english'): Conve
   };
 }
 
-const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
+const GROQ_API_KEY = c.env.GROQ_API_KEY || '';
 const GROQ_BASE_URL = 'https://api.groq.com/openai/v1';
 
 // Language detection patterns
