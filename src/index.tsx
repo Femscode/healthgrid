@@ -10,7 +10,7 @@ import { logger } from 'hono/logger'
 import { serveStatic } from 'hono/cloudflare-workers'
 
 // Load environment variables in development
-if (c.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     config()
 }
 
@@ -68,8 +68,8 @@ app.use('*', logger())
 // Middleware to initialize services on first API request
 app.use('/api/*', async (c, next) => {
     if (!webhookHandler) {
-        // Use c.env in development, c.env in production
-        const env = c.env.NODE_ENV !== 'production' ? c.env as any : c.env
+        // Use process.env in development, c.env in production
+        const env = process.env.NODE_ENV !== 'production' ? process.env as any : c.env
         await initializeServices(env)
     }
     await next()
@@ -85,12 +85,19 @@ async function initializeServices(env: Bindings) {
         console.log('🚀 Initializing HealthGrid services...')
 
         // Initialize MySQL Service
+        // const dbConfig: DatabaseConfig = {
+        //     host: env.DB_HOST || '77.37.35.61',
+        //     port: parseInt(env.DB_PORT || '3306'),
+        //     database: env.DB_DATABASE || 'u280643084_healthgrid',
+        //     user: env.DB_USERNAME || 'u280643084_healthgrid',
+        //     password: env.DB_PASSWORD || 'HealthGrid@123'
+        // }
         const dbConfig: DatabaseConfig = {
-            host: env.DB_HOST || '127.0.0.1',
-            port: parseInt(env.DB_PORT || '3306'),
-            database: env.DB_DATABASE || 'healthgrid_triage',
-            user: env.DB_USERNAME || 'root',
-            password: env.DB_PASSWORD || ''
+            host: '77.37.35.61',
+            port: parseInt('3306'),
+            database: 'u280643084_healthgrid',
+            user: 'u280643084_healthgrid',
+            password: 'HealthGrid@123'
         }
 
         mysqlService = new MySQLService(dbConfig)
@@ -695,7 +702,7 @@ app.get('/', (c) => {
                 <div class="lg:col-span-2">
                     <div class="medical-card rounded-2xl p-6 h-96">
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-bold text-gray-800" data-translate="chat-title">Live Chat With Doctor</h3>
+                            <h3 class="text-xl font-bold text-gray-800" data-translate="chat-title">Live Chat with Doctor</h3>
                             <div class="flex items-center space-x-4">
                                 <div class="flex items-center space-x-2">
                                     <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>

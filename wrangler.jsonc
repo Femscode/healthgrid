@@ -8,6 +8,7 @@
   ],
   "vars": {
     "BASE_URL": "https://ff728019.healthgrid-ebk.pages.dev/",
+    "NODE_ENV": "production",
     "DB_CONNECTION": "mysql",
     "DB_HOST": "77.37.35.61",
     "DB_PORT": "3306",
@@ -20,6 +21,7 @@
     "preview": {
       "vars": {
         "BASE_URL": "https://ff728019.healthgrid-ebk.pages.dev/",
+        "NODE_ENV": "production",
         "DB_CONNECTION": "mysql",
         "DB_HOST": "77.37.35.61",
         "DB_PORT": "3306",
@@ -32,6 +34,7 @@
     "production": {
       "vars": {
         "BASE_URL": "https://ff728019.healthgrid-ebk.pages.dev/",
+        "NODE_ENV": "production",
         "DB_CONNECTION": "mysql",
         "DB_HOST": "77.37.35.61",
         "DB_PORT": "3306",

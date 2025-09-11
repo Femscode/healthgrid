@@ -10,7 +10,7 @@ import { logger } from 'hono/logger'
 import { serveStatic } from 'hono/cloudflare-workers'
 
 // Load environment variables in development
-if (c.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     config()
 }
 
@@ -68,8 +68,8 @@ app.use('*', logger())
 // Middleware to initialize services on first API request
 app.use('/api/*', async (c, next) => {
     if (!webhookHandler) {
-        // Use c.env in development, c.env in production
-        const env = c.env.NODE_ENV !== 'production' ? c.env as any : c.env
+        // Use process.env in development, process.env in production
+        const env = process.env.NODE_ENV !== 'production' ? process.env as any : process.env
         await initializeServices(env)
     }
     await next()
@@ -158,7 +158,7 @@ async function initializeServices(env: Bindings) {
  */
 app.post('/webhook', async (c) => {
     try {
-        const env = c.env
+        const env = process.env
 
         // Initialize services if not already done
         if (!webhookHandler) {
@@ -206,7 +206,7 @@ app.get('/health', async (c) => {
                 hmoService: hmoService ? 'ready' : 'not ready',
                 diagnosticLabService: diagnosticLabService ? 'ready' : 'not ready'
             },
-            environment: c.env.NODE_ENV || 'development'
+            environment: process.env.NODE_ENV || 'development'
         }
 
         return c.json(healthData)
@@ -383,7 +383,7 @@ app.post('/api/payment/verify', async (c) => {
 // Middleware to ensure services are initialized before API calls
 app.use('/api/*', async (c, next) => {
     if (!mysqlService) {
-        await initializeServices(c.env)
+        await initializeServices(process.env)
     }
     await next()
 })
