@@ -5,10 +5,11 @@
   "pages_build_output_dir": "./dist",
   "compatibility_flags": [
     "nodejs_compat"
-  ]
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
+  ],
+  "vars": {
+    "NODE_ENV": "production",
+    "BASE_URL": "https://4ca2ab63.healthgrid-ebk.pages.dev/"
+  },
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",
