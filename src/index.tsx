@@ -1,6 +1,6 @@
 /**
  * HealthGrid AI Triage Server - Hono Implementation
- * Complete healthcare this triage system with Gupshup WhatsApp integration
+ * Complete healthcare triage system with Gupshup WhatsApp integration
  * Handles medical triage conversations through WhatsApp Business API
  */
 import { config } from 'dotenv'
@@ -86,19 +86,12 @@ async function initializeServices(env: Bindings) {
 
         // Initialize MySQL Service
         const dbConfig: DatabaseConfig = {
-            host: env.DB_HOST || '77.37.35.61',
+            host: env.DB_HOST || '127.0.0.1',
             port: parseInt(env.DB_PORT || '3306'),
-            database: env.DB_DATABASE || 'u280643084_healthgrid',
-            user: env.DB_USERNAME || 'u280643084_healthgridpel',
-            password: env.DB_PASSWORD || 'HealthGrid@123'
+            database: env.DB_DATABASE || 'healthgrid_triage',
+            user: env.DB_USERNAME || 'root',
+            password: env.DB_PASSWORD || ''
         }
-        // const dbConfig: DatabaseConfig = {
-        //     host: '77.37.35.61',
-        //     port: parseInt('3306'),
-        //     database: 'u280643084_healthgrid',
-        //     user: 'u280643084_healthgrid',
-        //     password: 'HealthGrid@123'
-        // }
 
         mysqlService = new MySQLService(dbConfig)
         await mysqlService.init()
@@ -702,7 +695,7 @@ app.get('/', (c) => {
                 <div class="lg:col-span-2">
                     <div class="medical-card rounded-2xl p-6 h-96">
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-bold text-gray-800" data-translate="chat-title">Live Chat with Doctor</h3>
+                            <h3 class="text-xl font-bold text-gray-800" data-translate="chat-title">Live Chat ith Doctor</h3>
                             <div class="flex items-center space-x-4">
                                 <div class="flex items-center space-x-2">
                                     <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
