@@ -5,10 +5,24 @@
   "pages_build_output_dir": "./dist",
   "compatibility_flags": [
     "nodejs_compat"
-  ]
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
+  ],
+  "vars": {
+    "DB_CONNECTION": "mysql",
+    "DB_HOST": "77.37.35.61",
+    "DB_PORT": "3306",
+    "DB_DATABASE": "u280643084_healthgrid",
+    "DB_USERNAME": "u280643084_healthgrid",
+    "DB_PASSWORD": "HealthGrid@123",
+    "GUPSHUP_API_KEY": "",
+    "GUPSHUP_SOURCE_NUMBER": "",
+    "GUPSHUP_WEBHOOK_URL": "http://localhost:5173/api/webhook",
+    "GROQ_API_KEY": "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",
+    "NODE_ENV": "development",
+    "PORT": "5173",
+    "FLUTTERWAVE_SECRET_KEY": "FLWSECK_TEST-d9fa83f2df36d966fb105c796d131c27-X",
+    "FLUTTERWAVE_PUBLIC_KEY": "FLWPUBK_TEST-b7923bccb00fd6598a02e3f38c9df846-X",
+    "BASE_URL": "http://localhost:5174"
+  },
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",
