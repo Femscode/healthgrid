@@ -7,7 +7,6 @@
     "nodejs_compat"
   ],
   "vars": {
-    "NODE_ENV": "production",
     "BASE_URL": "https://4ca2ab63.healthgrid-ebk.pages.dev/"
   }
 }
