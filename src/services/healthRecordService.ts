@@ -3,9 +3,9 @@
  * Maintains comprehensive, longitudinal health records for all patient interactions
  */
 export class HealthRecordService {
-  private db?: D1Database
+  private db?: any
 
-  constructor(db?: D1Database) {
+  constructor(db?: any) {
     this.db = db
   }
 
@@ -73,7 +73,7 @@ export class HealthRecordService {
         }
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Health record creation failed', {
         sessionId: session.id,
         error: error.message
@@ -111,7 +111,7 @@ export class HealthRecordService {
 
       return medicationRequest
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to add prescription to health record', {
         patientId,
         prescriptionId: prescription.id,
@@ -140,7 +140,7 @@ export class HealthRecordService {
         status
       })
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to record medication compliance', {
         patientId,
         prescriptionId,
@@ -169,7 +169,7 @@ export class HealthRecordService {
         outcome: outcome.status
       })
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to record insurance outcome', {
         patientId,
         claimId,
@@ -199,7 +199,7 @@ export class HealthRecordService {
         testCount: labReferral.tests.length
       })
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to add lab referral to health record', {
         patientId,
         referralId: labReferral.id,
@@ -229,7 +229,7 @@ export class HealthRecordService {
         hasAbnormalFindings: labReport.analysis.hasCriticalValues
       })
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to add lab results to health record', {
         patientId,
         reportId: labReport.id,
@@ -260,7 +260,7 @@ export class HealthRecordService {
 
       return patientRecord
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Patient record handling failed', {
         phoneNumber: session.phoneNumber,
         error: error.message
@@ -280,7 +280,7 @@ export class HealthRecordService {
       ).bind(phoneNumber).first()
 
       return result
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to find patient by phone', { phoneNumber, error: error.message })
       return null
     }
@@ -309,7 +309,7 @@ export class HealthRecordService {
           patientRecord.createdAt.toISOString(),
           patientRecord.updatedAt.toISOString()
         ).run()
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to store patient record', { error: error.message })
       }
     }
@@ -337,7 +337,7 @@ export class HealthRecordService {
 
       return encounter
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Encounter record creation failed', { error: error.message })
       throw error
     }
@@ -365,7 +365,7 @@ export class HealthRecordService {
 
       return conditionRecords
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Condition record creation failed', { error: error.message })
       throw error
     }
@@ -413,7 +413,7 @@ export class HealthRecordService {
 
       return observationRecords
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Observation record creation failed', { error: error.message })
       throw error
     }
@@ -436,7 +436,7 @@ export class HealthRecordService {
         new Date().toISOString()
       ).run()
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to store health record', { error: error.message })
     }
   }
@@ -457,7 +457,7 @@ export class HealthRecordService {
         medicationRequest.authoredOn.toISOString()
       ).run()
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to store medication request', { error: error.message })
     }
   }
@@ -478,7 +478,7 @@ export class HealthRecordService {
       ).run()
 
     } catch (error) {
-      console.error('Failed to store compliance record', { error: error.message })
+      console.error('Failed to store compliance record', { error: (error as any).message })
     }
   }
 
@@ -498,7 +498,7 @@ export class HealthRecordService {
         record.recordedAt.toISOString()
       ).run()
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to store insurance record', { error: error.message })
     }
   }
@@ -519,7 +519,7 @@ export class HealthRecordService {
         record.orderedAt.toISOString()
       ).run()
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to store lab record', { error: error.message })
     }
   }
@@ -540,7 +540,7 @@ export class HealthRecordService {
         record.completedAt.toISOString()
       ).run()
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to store lab results', { error: error.message })
     }
   }

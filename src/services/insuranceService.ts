@@ -90,7 +90,7 @@ export class InsuranceService {
         }
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Consultation claim processing failed', {
         consultationId: consultationData.id,
         error: error.message
@@ -157,7 +157,7 @@ export class InsuranceService {
         }
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Prescription claim processing failed', {
         prescriptionId: prescription.id,
         error: error.message
@@ -214,7 +214,7 @@ export class InsuranceService {
         }
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Insurance eligibility verification failed', {
         provider: insuranceInfo.provider,
         error: error.message
@@ -279,7 +279,7 @@ export class InsuranceService {
         data: eligibilityResult
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Insurance conversation integration failed', {
         sessionId: session.id,
         error: error.message

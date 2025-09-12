@@ -110,7 +110,7 @@ export class DiagnosticLabService {
         urgencyLevel: labReferral.urgencyLevel
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Lab referral processing failed', {
         consultationId,
         error: error.message
@@ -176,7 +176,7 @@ export class DiagnosticLabService {
         message: confirmationMessage
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Lab selection processing failed', {
         referralId,
         selectedLabId,
@@ -260,7 +260,7 @@ export class DiagnosticLabService {
         deliveryStatus: 'completed'
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Lab results processing failed', {
         appointmentId,
         error: error.message
@@ -290,7 +290,7 @@ export class DiagnosticLabService {
           throw new Error(`Unknown lab action: ${action}`)
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Lab conversation integration failed', {
         sessionId: session.id,
         action: labSelectionData.action,

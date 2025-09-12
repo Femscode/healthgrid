@@ -73,7 +73,7 @@ export class GupshupService {
       }
 
       if (options.isHSM) {
-        payload['isHSM'] = 'true'
+        (payload as any)['isHSM'] = 'true'
       }
 
       const response = await this._makeRequest('/msg', payload)
@@ -85,7 +85,7 @@ export class GupshupService {
       })
 
       return response
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to send text message', { phoneNumber, error: error.message })
       throw new Error(`WhatsApp message delivery failed: ${error.message}`)
     }
@@ -131,7 +131,7 @@ export class GupshupService {
       })
 
       return response
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to send interactive buttons', { phoneNumber, error: error.message })
       throw error
     }
@@ -154,7 +154,7 @@ export class GupshupService {
             button: buttonText,
             sections: sections.map(section => ({
               title: section.title,
-              rows: section.rows.map(row => ({
+              rows: section.rows.map((row: any) => ({
                 id: row.id,
                 title: row.title.substring(0, 24), // WhatsApp limit
                 description: row.description?.substring(0, 72) // WhatsApp limit
@@ -181,7 +181,7 @@ export class GupshupService {
       })
 
       return response
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to send list message', { phoneNumber, error: error.message })
       throw error
     }
@@ -265,7 +265,7 @@ export class GupshupService {
 
   parseIncomingMessage(payload: any): any {
     try {
-      const messageData = {
+      const messageData: any = {
         messageId: payload.id,
         timestamp: payload.timestamp,
         phoneNumber: payload.payload?.sender?.phone || payload.mobile,
@@ -282,13 +282,13 @@ export class GupshupService {
           
         case 'button_reply':
           messageData.content = payload.payload?.title
-          messageData['buttonId'] = payload.payload?.id
+          messageData.buttonId = payload.payload?.id
           messageData.isButtonReply = true
           break
           
         case 'list_reply':
           messageData.content = payload.payload?.title
-          messageData['listId'] = payload.payload?.id
+          messageData.listId = payload.payload?.id
           messageData.isListReply = true
           break
           
@@ -296,7 +296,7 @@ export class GupshupService {
         case 'document':
         case 'audio':
           messageData.content = payload.payload?.caption || 'Media received'
-          messageData['mediaUrl'] = payload.payload?.url
+          messageData.mediaUrl = payload.payload?.url
           break
           
         default:
@@ -306,7 +306,7 @@ export class GupshupService {
       console.log('Parsed incoming message', messageData)
       return messageData
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to parse incoming message', { payload, error: error.message })
       return null
     }
@@ -334,7 +334,7 @@ export class GupshupService {
       } else {
         throw new Error(`Gupshup API error: ${data.message || 'Unknown error'}`)
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Gupshup API error', {
         endpoint,
         error: error.message

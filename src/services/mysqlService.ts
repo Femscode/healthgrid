@@ -27,10 +27,7 @@ export class MySQLService {
       password: config.password,
       waitForConnections: true,
       connectionLimit: 10,
-      queueLimit: 0,
-      acquireTimeout: 60000,
-      timeout: 60000,
-      reconnect: true
+      queueLimit: 0
     })
   }
 
@@ -44,7 +41,7 @@ export class MySQLService {
       // Initialize database schema
       await this.initializeSchema()
       console.log('✅ MySQL database schema initialized')
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ MySQL connection failed:', error)
       throw error
     }

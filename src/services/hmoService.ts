@@ -120,7 +120,7 @@ export class HMOService {
         }
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('HMO enrollment verification failed', {
         hmoProvider: membershipInfo.hmoProvider,
         error: error.message
@@ -185,7 +185,7 @@ export class HMOService {
 
       return coordinationResult
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('HMO care coordination failed', {
         caseId,
         serviceType: serviceRequest.type,
@@ -216,7 +216,7 @@ export class HMOService {
           throw new Error(`Unknown HMO action: ${action}`)
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('HMO conversation integration failed', {
         sessionId: session.id,
         action: hmoAction.action,
@@ -288,7 +288,7 @@ export class HMOService {
         message: 'Service authorized - select your preferred provider'
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Direct access handling failed', { error: error.message })
       throw error
     }
@@ -334,7 +334,7 @@ export class HMOService {
         message: 'Referral sent to your primary care physician'
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Primary care referral failed', { error: error.message })
       throw error
     }

@@ -64,7 +64,7 @@ export class TelemedicineService {
         preparationInstructions: this.getPreparationInstructions(session.preferredLanguage)
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to schedule video consultation', {
         error: error.message,
         sessionId: session.id
@@ -99,7 +99,7 @@ export class TelemedicineService {
         recordingEnabled: false // Disabled for demo
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to start video consultation', {
         consultationId,
         error: error.message
@@ -147,7 +147,7 @@ export class TelemedicineService {
 
       return consultationSummary
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error ending consultation', {
         consultationId,
         error: error.message
@@ -233,7 +233,7 @@ export class TelemedicineService {
         data: consultationDetails
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Telemedicine integration error', { error: error.message })
       throw error
     }
@@ -241,9 +241,9 @@ export class TelemedicineService {
 
   private formatSchedulingConfirmation(consultationDetails: any, language: string): string {
     const messages: Record<string, string> = {
-      en: `🎥 **Video Consultation Scheduled**\n\n**Provider:** ${consultationDetails.provider.name}\n**Date & Time:** ${consultationDetails.scheduledTime.toLocaleString()}\n**Duration:** ${consultationDetails.estimatedDuration}\n**Cost:** ₦${consultationDetails.cost.toLocaleString()}\n\n**Preparation Instructions:**\n${consultationDetails.preparationInstructions.map(instruction => `• ${instruction}`).join('\n')}\n\n**Access Link:** ${consultationDetails.patientAccessUrl}\n\nPlease confirm your appointment below.`,
+      en: `🎥 **Video Consultation Scheduled**\n\n**Provider:** ${consultationDetails.provider.name}\n**Date & Time:** ${consultationDetails.scheduledTime.toLocaleString()}\n**Duration:** ${consultationDetails.estimatedDuration}\n**Cost:** ₦${consultationDetails.cost.toLocaleString()}\n\n**Preparation Instructions:**\n${consultationDetails.preparationInstructions.map((instruction: string) => `• ${instruction}`).join('\n')}\n\n**Access Link:** ${consultationDetails.patientAccessUrl}\n\nPlease confirm your appointment below.`,
       
-      pcm: `🎥 **Video Call with Doctor Don Ready**\n\n**Doctor:** ${consultationDetails.provider.name}\n**Date & Time:** ${consultationDetails.scheduledTime.toLocaleString()}\n**How Long:** ${consultationDetails.estimatedDuration}\n**Money:** ₦${consultationDetails.cost.toLocaleString()}\n\n**Wetin You Need Do:**\n${consultationDetails.preparationInstructions.map(instruction => `• ${instruction}`).join('\n')}\n\n**Link:** ${consultationDetails.patientAccessUrl}\n\nAbeg confirm your appointment.`
+      pcm: `🎥 **Video Call with Doctor Don Ready**\n\n**Doctor:** ${consultationDetails.provider.name}\n**Date & Time:** ${consultationDetails.scheduledTime.toLocaleString()}\n**How Long:** ${consultationDetails.estimatedDuration}\n**Money:** ₦${consultationDetails.cost.toLocaleString()}\n\n**Wetin You Need Do:**\n${consultationDetails.preparationInstructions.map((instruction: string) => `• ${instruction}`).join('\n')}\n\n**Link:** ${consultationDetails.patientAccessUrl}\n\nAbeg confirm your appointment.`
     }
 
     return messages[language] || messages.en

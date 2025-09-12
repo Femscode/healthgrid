@@ -37,7 +37,7 @@ export class PrescriptionService {
       const prescriptionId = this.generatePrescriptionId()
       
       // Mock validation - in real implementation, this would be comprehensive
-      const validationResult = { isValid: true, errors: [] }
+      const validationResult = { isValid: true, errors: [] as string[] }
       if (!prescriptionData.medications || prescriptionData.medications.length === 0) {
         validationResult.isValid = false
         validationResult.errors.push('No medications specified')
@@ -92,7 +92,7 @@ export class PrescriptionService {
         qrCode: await this.generatePrescriptionQRCode(prescription)
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to create prescription', {
         consultationId,
         error: error.message
@@ -126,7 +126,7 @@ export class PrescriptionService {
         }
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to send prescription to patient', {
         prescriptionId: prescription.id,
         error: error.message
@@ -199,7 +199,7 @@ export class PrescriptionService {
         totalCost: order.totalCost
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Pharmacy selection failed', {
         prescriptionId,
         pharmacyId,
@@ -229,7 +229,7 @@ export class PrescriptionService {
 
       return paymentResult
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Payment processing failed', {
         orderId,
         paymentMethod,
@@ -277,7 +277,7 @@ export class PrescriptionService {
         )
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to complete prescription', {
         orderId,
         error: error.message
