@@ -1,0 +1,23 @@
+name = "healthgrid-webapp"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[build]
+command = "npm run build"
+
+[env.production.vars]
+NODE_ENV = "production"
+DB_CONNECTION=mysql
+DB_HOST="77.37.35.61"
+DB_PORT=3306
+DB_DATABASE="u280643084_healthgrid"
+DB_USERNAME="u280643084_healthgrid"
+DB_PASSWORD="HealthGrid@123"
+GUPSHUP_API_KEY = "your-gupshup-api-key"
+GUPSHUP_SOURCE_NUMBER = "your-whatsapp-number"
+GROQ_API_KEY="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"
+FLUTTERWAVE_PUBLIC_KEY = "your-flutterwave-public-key"
+FLUTTERWAVE_SECRET_KEY = "your-flutterwave-secret-key"
+
+[pages_build_output_dir]
+directory = "dist"
