@@ -1055,6 +1055,18 @@ app.get('/', (c) => {
             const sendButton = document.getElementById('sendMessage');
             const chatMessages = document.getElementById('chatMessages');
             
+            // Determine API base URL based on environment
+            const getApiBaseUrl = () => {
+                // If running on localhost (development), use local server
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    return 'http://localhost:5173';
+                }
+                // Otherwise use current origin (production)
+                return window.location.origin;
+            };
+            
+            const API_BASE_URL = getApiBaseUrl();
+            
             let currentSessionId = null;
             let lastMessageTime = new Date(0).toISOString(); // Start from epoch to get all messages initially
             let pollingInterval = null;
@@ -1063,7 +1075,7 @@ app.get('/', (c) => {
             // Initialize chat session
             async function initializeChat() {
                 try {
-                    const response = await fetch('/api/chat/sessions', {
+                    const response = await fetch(API_BASE_URL + '/api/chat/sessions', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1099,7 +1111,7 @@ app.get('/', (c) => {
                 if (!currentSessionId) return;
                 
                 try {
-                    const response = await fetch(\`/api/chat/sessions/\${currentSessionId}/messages\`);
+                    const response = await fetch(API_BASE_URL + '/api/chat/sessions/' + currentSessionId + '/messages');
                     const result = await response.json();
                     
                     if (result.success) {
@@ -1131,7 +1143,7 @@ app.get('/', (c) => {
                     if (!currentSessionId) return;
                     
                     try {
-                        const response = await fetch(\`/api/chat/sessions/\${currentSessionId}/messages/recent?since=\${encodeURIComponent(lastMessageTime)}\`);
+                        const response = await fetch(API_BASE_URL + '/api/chat/sessions/' + currentSessionId + '/messages/recent?since=' + encodeURIComponent(lastMessageTime));
                         const result = await response.json();
                         
                         if (result.success && result.data.length > 0) {
@@ -1246,7 +1258,7 @@ app.get('/', (c) => {
                     addTypingIndicator();
                     
                     // Send to AI chat endpoint
-                    const response = await fetch(\`/api/chat/sessions/\${currentSessionId}/ai-chat\`, {
+                    const response = await fetch(API_BASE_URL + '/api/chat/sessions/' + currentSessionId + '/ai-chat', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1481,7 +1493,7 @@ app.get('/', (c) => {
                 }
                 
                 try {
-                    const response = await fetch('/api/chat/sessions/' + currentSessionId + '/quick-action', {
+                    const response = await fetch(API_BASE_URL + '/api/chat/sessions/' + currentSessionId + '/quick-action', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
