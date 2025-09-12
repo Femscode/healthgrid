@@ -40,12 +40,25 @@ wrangler pages project create healthgrid-webapp
 
 ### 4. Deploy to Cloudflare Pages
 ```bash
-# Build the project
+# Build the project first
 npm run build
 
 # Deploy to Cloudflare Pages
 wrangler pages deploy dist --project-name=healthgrid-webapp
+
+# Or use the npm script
+npm run deploy
 ```
+
+### Alternative: Connect Git Repository
+1. Push your code to GitHub/GitLab
+2. Go to Cloudflare Dashboard > Pages
+3. Click "Create a project" > "Connect to Git"
+4. Select your repository
+5. Set build settings:
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+   - Root directory: `/` (or leave empty)
 
 ### 5. Set Environment Variables
 In Cloudflare Dashboard > Pages > healthgrid-webapp > Settings > Environment Variables:

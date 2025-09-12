@@ -10,5 +10,15 @@ export default defineConfig({
       adapter,
       entry: 'src/index.tsx'
     })
-  ]
+  ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'public/index.html'
+      }
+    },
+    outDir: 'dist',
+    emptyOutDir: true
+  },
+  publicDir: 'public'
 })
