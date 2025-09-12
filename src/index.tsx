@@ -85,20 +85,20 @@ async function initializeServices(env: Bindings) {
         console.log('🚀 Initializing HealthGrid services...')
 
         // Initialize MySQL Service
-        // const dbConfig: DatabaseConfig = {
-        //     host: env.DB_HOST || '127.0.0.1',
-        //     port: parseInt(env.DB_PORT || '3306'),
-        //     database: env.DB_DATABASE || 'healthgrid_triage',
-        //     user: env.DB_USERNAME || 'root',
-        //     password: env.DB_PASSWORD || ''
-        // }
         const dbConfig: DatabaseConfig = {
-            host: '77.37.35.61',
-            port: parseInt('3306'),
-            database: 'u280643084_healthgrid',
-            user: 'u280643084_healthgrid',
-            password: 'HealthGrid@123'
+            host: env.DB_HOST || '77.37.35.61',
+            port: parseInt(env.DB_PORT || '3306'),
+            database: env.DB_DATABASE || 'u280643084_healthgrid',
+            user: env.DB_USERNAME || 'u280643084_healthgrid',
+            password: env.DB_PASSWORD || 'HealthGrid@123'
         }
+        
+        console.log('🔗 Connecting to database:', {
+            host: dbConfig.host,
+            port: dbConfig.port,
+            database: dbConfig.database,
+            user: dbConfig.user
+        })
 
         mysqlService = new MySQLService(dbConfig)
         await mysqlService.init()
@@ -389,10 +389,20 @@ app.post('/api/payment/verify', async (c) => {
 // Mount chat API routes
 // Middleware to ensure services are initialized before API calls
 app.use('/api/*', async (c, next) => {
-    if (!mysqlService) {
-        await initializeServices(c.env)
+    try {
+        if (!mysqlService) {
+            console.log('🔄 Initializing services for API request...')
+            await initializeServices(c.env)
+        }
+        await next()
+    } catch (error) {
+        console.error('❌ Service initialization failed in middleware:', error)
+        return c.json({ 
+            error: 'Service initialization failed', 
+            details: error instanceof Error ? error.message : 'Unknown error',
+            timestamp: new Date().toISOString()
+        }, 500)
     }
-    await next()
 })
 
 app.route('/api/chat', chatRoutes)
