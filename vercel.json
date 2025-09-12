@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/index.tsx",
+      "src": "api/index.ts",
       "use": "@vercel/node",
       "config": {
         "includeFiles": ["src/**", "public/**"]
@@ -16,7 +16,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/src/index.tsx"
+      "dest": "/api/index.ts"
     }
   ],
   "env": {
