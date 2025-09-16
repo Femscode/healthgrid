@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  body {
+    @apply bg-white text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .chat-message {
+    @apply max-w-3xl mx-auto px-4 py-6;
+  }
+  
+  .user-message {
+    @apply bg-gray-50 border-l-4 border-blue-500;
+  }
+  
+  .assistant-message {
+    @apply bg-white;
+  }
+  
+  .message-content {
+    @apply text-gray-900 leading-relaxed max-w-none;
+  }
+  
+  .typing-indicator {
+    @apply flex space-x-1;
+  }
+  
+  .typing-dot {
+    @apply w-2 h-2 bg-gray-400 rounded-full animate-pulse;
+  }
+  
+  .typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+}

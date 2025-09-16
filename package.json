@@ -1,55 +1,34 @@
 {
-  "name": "healthgrid-ai-triage",
+  "name": "hospital-gupchup-webapp",
   "version": "1.0.0",
-  "description": "AI-powered medical triage system for WhatsApp using Gupshup API - Nigerian languages support",
+  "description": "Hospital GupChup React Web Application",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:sandbox": "wrangler pages dev dist --ip 0.0.0.0 --port 3000",
     "build": "tsc && vite build",
-    "preview": "wrangler pages dev",
-    "deploy": "npm run build && wrangler pages deploy",
-    "deploy:prod": "npm run build && wrangler pages deploy --project-name healthgrid-triage",
-    "vercel-build": "tsc",
-    "start": "node dist/index.js",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
-    "clean-port": "fuser -k 3000/tcp 2>/dev/null || true",
-    "test": "curl http://localhost:3000",
-    "setup:db": "node scripts/setup-database.js",
-    "verify:db": "node scripts/verify-database.js",
-    "create:tables": "node scripts/create-tables.js",
-    "git:status": "git status",
-    "git:log": "git log --oneline"
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
-  "keywords": [
-    "healthcare",
-    "triage",
-    "whatsapp",
-    "ai",
-    "medical",
-    "nigeria",
-    "gupshup",
-    "multilingual",
-    "telemedicine"
-  ],
-  "author": "HealthGrid Technologies",
-  "license": "MIT",
   "dependencies": {
-    "dotenv": "^17.2.2",
-    "hono": "^4.9.2",
-    "mysql2": "^3.14.5",
-    "vite": "^6.3.5",
-    "wrangler": "^4.4.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "lucide-react": "^0.263.1",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250705.0",
-    "@hono/vite-build": "^1.7.0",
-    "@hono/vite-dev-server": "^0.18.3",
-    "@types/node": "^24.3.1",
-    "typescript": "^5.0.0"
-  },
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
   }
 }
